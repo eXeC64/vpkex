@@ -1,7 +1,16 @@
 .PHONY: clean
 
-vpkex: vpkex.c
-	gcc -o vpkex vpkex.c
+CFLAGS ?= -O2 -Wall -Werror -Wpedantic
+
+TARGET = vpkex
+SOURCES = $(wildcard *.c)
+OBJECTS = $(patsubst %.c,%.o,$(SOURCES))
+
+$(TARGET): $(OBJECTS)
+	$(CC) $(LDFLAGS) -o $@ $<
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $<
 
 clean:
-	rm vpkex
+	$(RM) $(TARGET) $(OBJECTS)
