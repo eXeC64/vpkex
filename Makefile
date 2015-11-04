@@ -4,13 +4,9 @@ CFLAGS ?= -O2 -Wall -Werror -Wpedantic
 
 TARGET = vpkex
 SOURCES = $(wildcard *.c)
-OBJECTS = $(patsubst %.c,%.o,$(SOURCES))
+OBJECTS = $(SOURCES:%.c=%.o)
 
 $(TARGET): $(OBJECTS)
-	$(CC) $(LDFLAGS) $(LDLIBS) -o $@ $^
-
-%.o: %.c
-	$(CC) $(CFLAGS) -c $<
 
 clean:
 	$(RM) $(TARGET) $(OBJECTS)
